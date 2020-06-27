@@ -6,6 +6,7 @@ import 'dart:io' show Platform;
 import 'package:beacons_plugin/beacons_plugin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:beaconapplication/screens/wrapper.dart";
+import 'package:provider/provider.dart';
 
 
 
@@ -92,10 +93,12 @@ class _MyAppState extends State<MyApp> {
 @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Wrapper()
-      );
+    return StreamProvider(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Wrapper()
+        ),
+    );
   }
 
 //  @override

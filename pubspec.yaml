@@ -26,6 +26,8 @@ dependencies:
   beacons_plugin: ^1.0.12
   firebase_auth: ^0.16.1
   cloud_firestore: ^0.13.7
+  provider: ^4.1.3
+
 
 
 dev_dependencies:
