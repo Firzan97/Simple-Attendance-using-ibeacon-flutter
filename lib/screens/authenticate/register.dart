@@ -1,40 +1,43 @@
 import 'package:beaconapplication/services/auth.dart';
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 
-class SignIn extends StatefulWidget {
+    class Register extends StatefulWidget {
 
-  final Function toggleView;
-  SignIn({this.toggleView});
+      final Function toggleView;
+      Register({this.toggleView});
 
-  @override
-  _SignInState createState() => _SignInState();
-}
+      @override
+      _RegisterState createState() => _RegisterState();
+    }
 
-final _formkey = GlobalKey<FormState>();
-final AuthService _auth = AuthService();
+    class _RegisterState extends State<Register> {
 
-String email = "";
-String password="";
-String error = "";
+      final AuthService _auth = AuthService();
+      final _formkey = GlobalKey<FormState>();
 
-class _SignInState extends State<SignIn> {
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Sign In"),
-        centerTitle: true,
-        backgroundColor: Colors.redAccent,
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text("Register"),
-            onPressed: (){
-              widget.toggleView();
-            },
-          )
-        ],
-      ),
-      body: Container(
+     String email = "";
+     String password="";
+     String error = "";
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("Register"),
+            centerTitle: true,
+            backgroundColor: Colors.redAccent,
+            actions: <Widget>[
+              FlatButton.icon(
+                icon: Icon(Icons.person),
+                label: Text("Sign In"),
+                onPressed: (){
+                  widget.toggleView();
+                },
+              )
+            ],
+          ),
+          body: Container(
         child: Column(
           children: <Widget>[
             Container(
@@ -70,18 +73,16 @@ class _SignInState extends State<SignIn> {
                     RaisedButton(
                       color: Colors.lightBlueAccent,
                       child: Text(
-                        'Sign In',
+                        'Register',
                         style: TextStyle(color: Colors.black),
                       ),
                       onPressed: () async {
                         if (_formkey.currentState.validate()) {
-                          print("Validate");
-                          dynamic result =
-                              await _auth.SignInWithEmailAndPassword(
-                                  email, password);
+                          dynamic result = await _auth
+                              .resgisterWithEmailAndPassword(email, password);
                           if (result == null) {
-                            setState(() => error =
-                                "Could Not SiGN iN WITH THOSE CREDENTIALS ");
+                            setState(
+                                () => error = "Please suply a valid email ");
                             ;
                           }
                         }

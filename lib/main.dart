@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:beaconapplication/model/user.dart';
+import 'package:beaconapplication/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
@@ -93,7 +95,8 @@ class _MyAppState extends State<MyApp> {
 @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return StreamProvider(
+    return StreamProvider<User>.value(
+      value: AuthService().user,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Wrapper()
