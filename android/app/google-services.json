@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "390713469240",
+    "firebase_url": "https://attendance-flutter.firebaseio.com",
+    "project_id": "attendance-flutter",
+    "storage_bucket": "attendance-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390713469240:android:81a7a527e92c5cb883f9cd",
+        "android_client_info": {
+          "package_name": "com.example.beaconapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390713469240-v1bc9iqfnrohe4jcc563deoabooh4v88.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8YPbvxNQ5gaVucwPi1MlgLIVtMY3Jx8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390713469240-v1bc9iqfnrohe4jcc563deoabooh4v88.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
