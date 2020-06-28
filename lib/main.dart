@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:beaconapplication/model/user.dart';
 import 'package:beaconapplication/services/auth.dart';
