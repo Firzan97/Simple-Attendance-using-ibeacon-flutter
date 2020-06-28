@@ -86,6 +86,31 @@ class _HomeState extends State<Home>{
     if (!mounted) return;
   }
 
+  void _attendance(){
+    showDialog(context: context,
+    builder: (BuildContext context){
+      return AlertDialog(
+        title:  Text("Thank you for coming the class today"),
+        content:  SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('Click OK to close'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text("OK"),
+            onPressed: (){
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      );
+    }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -118,39 +143,42 @@ class _HomeState extends State<Home>{
               SizedBox(
                 height: 20.0,
               ),
-              RaisedButton(
-                onPressed: () async {
-                  if (Platform.isAndroid) {
-                    await BeaconsPlugin.stopMonitoring;
-
-                    setState(() {
-                      isRunning = false;
-                    });
-                  }
-                },
-                child: Text('Stop Scanning', style: TextStyle(fontSize: 20)),
-              ),
+//              RaisedButton(
+//                onPressed: () async {
+//                  if (Platform.isAndroid) {
+//                    await BeaconsPlugin.stopMonitoring;
+//
+//                    setState(() {
+//                      isRunning = false;
+//                    });
+//                  }
+//                },
+//                child: Text('Stop Scanning', style: TextStyle(fontSize: 20)),
+//              ),
 
               SizedBox(
                 height: 20.0,
               ),
 
+//              RaisedButton(
+//                onPressed: () async {
+//                  initPlatformState();
+//                  await BeaconsPlugin.startMonitoring;
+//                  setState(() {
+//                    isRunning = true;
+//                  });
+//                },
+//                child: Text('Start Scanning', style: TextStyle(fontSize: 20, color: Colors.black)),
+//                color: Colors.lightBlueAccent,
+//              ),
               RaisedButton(
-                onPressed: () async {
-                  initPlatformState();
-                  await BeaconsPlugin.startMonitoring;
-                  if(uuid==Null)
-                    {
-                      AlertDialog(
-                        title: Text("Thank you for coming"),
-                        content: Text("We have some promotion for you"),
-                      );
-                    }
-                  setState(() {
-                    isRunning = true;
-                  });
+                onPressed: () async{
+                  if(uuid=="C5:4D:36:46:B6:CA")
+                  {
+                    _attendance();
+                  }
                 },
-                child: Text('Start Scanning', style: TextStyle(fontSize: 20, color: Colors.black)),
+                child: Text('Submit attendance', style: TextStyle(fontSize: 20, color: Colors.black)),
                 color: Colors.lightBlueAccent,
               ),
             ],
