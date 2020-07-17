@@ -22,7 +22,7 @@ String error = "";
 
 class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
-    return loading ? Loading() : Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text("Sign In"),
           centerTitle: true,
@@ -81,7 +81,7 @@ class _SignInState extends State<SignIn> {
                         ),
                         onPressed: () async {
                           if (_formkey.currentState.validate()) {
-                            setState(() => loading = true);
+
                             print("Validate");
                             dynamic result =
                             await _auth.SignInWithEmailAndPassword(
@@ -90,7 +90,7 @@ class _SignInState extends State<SignIn> {
                               setState(() {
                                 error =
                                 "Could  not sign in. Wrong input ";
-                                loading = false;
+
                               });
                             }
                           }
