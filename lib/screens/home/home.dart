@@ -5,15 +5,13 @@ import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:beacons_plugin/beacons_plugin.dart';
 
-class Home extends StatefulWidget{
+class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home>{
-
+class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
-
 
   String _beaconResult = 'Not Scanned Yet.';
   int _nrMessaggesReceived = 0;
@@ -22,7 +20,7 @@ class _HomeState extends State<Home>{
   Map datas;
 
   final StreamController<String> beaconEventsController =
-  StreamController<String>.broadcast();
+      StreamController<String>.broadcast();
 
   @override
   void initState() {
@@ -45,15 +43,14 @@ class _HomeState extends State<Home>{
     await BeaconsPlugin.addRegion(
         "BeaconType2", "6a84c716-0f2a-1ce9-f210-6a63bd873dd9");
 
-
     beaconEventsController.stream.listen(
-            (data) {
+        (data) {
           if (data.isNotEmpty) {
             setState(() {
               _beaconResult = data.toString();
               _nrMessaggesReceived++;
               result = _beaconResult;
-              Map datas= jsonDecode(_beaconResult);
+              Map datas = jsonDecode(_beaconResult);
               uuid = datas["macAddress"];
             });
             print("Beacons DataReceived: " + data);
@@ -86,28 +83,29 @@ class _HomeState extends State<Home>{
     if (!mounted) return;
   }
 
-  void _attendance(){
-    showDialog(context: context,
-    builder: (BuildContext context){
-      return AlertDialog(
-        title:  Text("Thank you for coming the class today"),
-        content:  SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[
-              Text('Click OK to close'),
-            ],
+  void _attendance() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Thank you for coming the class today"),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Click OK to close'),
+              ],
+            ),
           ),
-        ),
-        actions: <Widget>[
-          FlatButton(
-            child: Text("OK"),
-            onPressed: (){
-              Navigator.of(context).pop();
-            },
-          )
-        ],
-      );
-    }
+          actions: <Widget>[
+            FlatButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
     );
   }
 
@@ -124,67 +122,64 @@ class _HomeState extends State<Home>{
           FlatButton.icon(
             icon: Icon(Icons.person),
             label: Text("Logout"),
-            onPressed: () async{
-               await _auth.signOut();
+            onPressed: () async {
+              await _auth.signOut();
             },
           )
         ],
       ),
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('$uuid'),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-              ),
-              Text('$_nrMessaggesReceived'),
-              SizedBox(
-                height: 20.0,
-              ),
-//              RaisedButton(
-//                onPressed: () async {
-//                  if (Platform.isAndroid) {
-//                    await BeaconsPlugin.stopMonitoring;
-//
-//                    setState(() {
-//                      isRunning = false;
-//                    });
-//                  }
-//                },
-//                child: Text('Stop Scanning', style: TextStyle(fontSize: 20)),
-//              ),
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(uuid == "CD:E7:8D:D5:4E:73" ? 'Bilik JMK 1' : 'No Class Detect'),
+            Padding(
+              padding: EdgeInsets.all(10.0),
+            ),
+            Text('$_nrMessaggesReceived'),
+            SizedBox(
+              height: 20.0,
+            ),
+            RaisedButton(
+              onPressed: () async {
+                if (Platform.isAndroid) {
+                  await BeaconsPlugin.stopMonitoring;
 
-              SizedBox(
-                height: 20.0,
-              ),
-
-//              RaisedButton(
-//                onPressed: () async {
-//                  initPlatformState();
-//                  await BeaconsPlugin.startMonitoring;
-//                  setState(() {
-//                    isRunning = true;
-//                  });
-//                },
-//                child: Text('Start Scanning', style: TextStyle(fontSize: 20, color: Colors.black)),
-//                color: Colors.lightBlueAccent,
-//              ),
-              RaisedButton(
-                onPressed: () async{
-                  if(uuid=="C5:4D:36:46:B6:CA")
-                  {
-                    _attendance();
-                  }
-                },
-                child: Text('Submit attendance', style: TextStyle(fontSize: 20, color: Colors.black)),
-                color: Colors.lightBlueAccent,
-              ),
-            ],
-          ),
+                  setState(() {
+                    isRunning = true;
+                  });
+                }
+              },
+              child: Text('Stop Scanning', style: TextStyle(fontSize: 20)),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            RaisedButton(
+              onPressed: () async {
+                initPlatformState();
+                await BeaconsPlugin.startMonitoring;
+                setState(() {
+                  isRunning = true;
+                });
+              },
+              child: Text('Start Scanning', style: TextStyle(fontSize: 20, color: Colors.black)),
+              color: Colors.lightBlueAccent,
+            ),
+            RaisedButton(
+              onPressed: () async {
+                if (uuid == "CD:E7:8D:D5:4E:73") {
+                  _attendance();
+                }
+              },
+              child: Text('Submit attendance',
+                  style: TextStyle(fontSize: 20, color: Colors.black)),
+              color: Colors.lightBlueAccent,
+            ),
+          ],
         ),
+      ),
     );
   }
 }
-
