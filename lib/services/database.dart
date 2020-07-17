@@ -1,4 +1,8 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../model/user.dart';
+
 
 class DatabaseService {
   final String uid;
@@ -7,10 +11,48 @@ class DatabaseService {
   final CollectionReference studentInfo =
       Firestore.instance.collection('students');
 
-  Future updateUserData(String name, String program) async {
+  // final CollectionReference attendance = Firestore.instance.collection('attendance');
+
+  Future updateUserData(String name, String program, String matrix) async {
     return await studentInfo.document(uid).setData({
       'name': name,
       'program': program,
+      'matrik': matrix,
     });
+  }
+
+  List<User> _userListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc){
+      return User(
+        name:  doc.data['name'] ?? '',
+        program: doc.data['program'] ?? '',
+        matrix: doc.data['matrik'] ?? ''
+      );
+    }).toList();
+  }
+
+  User _userDataFromSnapShot(DocumentSnapshot snapshot){
+    return User(
+      uid: uid,
+      name: snapshot.data['name'],
+      program: snapshot.data['program'],
+      matrix: snapshot.data['matrik'],
+    );
+  }
+
+  Stream<List<User>> get students {
+    return studentInfo.snapshots().map(_userListFromSnapshot);
+  }
+
+  Stream<User> get userData{
+    return studentInfo.document(uid).snapshots()
+    .map(_userDataFromSnapShot);
+  }
+
+  //automatic attendance
+  Future updateAttendance(){
+    // return await attendance.document(uid).setDat({
+    // 'status' : attended });
+
   }
 }

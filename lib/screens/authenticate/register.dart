@@ -19,6 +19,7 @@ class _RegisterState extends State<Register> {
   String password = "";
   String error = "";
   String program = "";
+  String matrix = "";
   final List<String> programs = ['CS230', 'CS251', 'CS253'];
 
   @override
@@ -114,11 +115,10 @@ class _RegisterState extends State<Register> {
                         if (_formkey.currentState.validate()) {
                           //await _auth.addAdditionalData(name, program);
                           dynamic result = await _auth
-                              .registerWithEmailAndPassword(email, password, program, name);
+                              .registerWithEmailAndPassword(email, password, program, name, matrix);
                           if (result == null) {
                             setState(
                                 () => error = "Please suply a valid email ");
-                            ;
                           }
                         }
                       },

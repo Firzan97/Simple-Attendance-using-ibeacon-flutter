@@ -1,6 +1,5 @@
 import 'package:beaconapplication/services/auth.dart';
 import 'package:beaconapplication/shared/constants.dart';
-import 'package:beaconapplication/shared/loading.dart';
 import "package:flutter/material.dart";
 
 class SignIn extends StatefulWidget {
@@ -86,6 +85,7 @@ class _SignInState extends State<SignIn> {
                             dynamic result =
                             await _auth.SignInWithEmailAndPassword(
                                 email, password);
+                            print(result+"sasasa");
                             if (result == null) {
                               setState(() {
                                 error =

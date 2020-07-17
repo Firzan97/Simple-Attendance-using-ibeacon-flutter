@@ -4,8 +4,9 @@ class User {
   final String uid;
   final String name;
   final String program;
+  final String matrix;
 
-  User({this.uid, this.name, this.program});
+  User({this.uid, this.name, this.program,this.matrix});
 }
 
 class UserData {

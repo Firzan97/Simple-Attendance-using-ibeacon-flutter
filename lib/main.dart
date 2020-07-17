@@ -2,10 +2,6 @@
 import 'package:beaconapplication/model/user.dart';
 import 'package:beaconapplication/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:io' show Platform;
-import 'package:beacons_plugin/beacons_plugin.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import "package:beaconapplication/screens/wrapper.dart";
 import 'package:provider/provider.dart';
 
