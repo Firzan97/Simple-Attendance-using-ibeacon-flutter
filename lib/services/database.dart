@@ -55,7 +55,7 @@ class DatabaseService {
   Future updateAttendance()async {
     return await attendance.document(uid).setData({
       'status' : "attended" ,
-       'student': "/students/"+uid
+       'student': uid,
     });
   }
 
@@ -72,4 +72,7 @@ class DatabaseService {
   Stream<List<Attendance>> get attendances {
     return attendance.snapshots().map(_attendanceListFromSnapshot);
   }
+
+
+
 }

@@ -126,7 +126,7 @@ class _UserListState extends State<UserList> {
   @override
   Widget build(BuildContext context) {
     final students = Provider.of<List<User>>(context) ?? [];
-    final user = Provider.of<User>(context);
+    final user = Provider.of<User>(context) ;
      final attendances = Provider.of<List<Attendance>>(context) ?? [];
 
     return StreamBuilder<User>(
