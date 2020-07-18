@@ -17,7 +17,7 @@ class _UserListState extends State<UserList> {
 
     final students = Provider.of<List<User>>(context);
     final user = Provider.of<User>(context);
-
+    int i=0;
 
 
     return StreamBuilder<User>(
@@ -26,11 +26,11 @@ class _UserListState extends State<UserList> {
         return ListView.builder(
             itemCount: students.length,
             itemBuilder: (context,index){
-              if(students[index].matrix==snapshot.data.matrix) {
-                 DatabaseService(uid: user.uid).updateAttendance();
-                 print("Total student sekarang ---->" + students.length.toString());
-                return UserTile(user: students[index]);
-              }
+            if(students[index].matrix.toString()=="2019702237") {
+              DatabaseService(uid: user.uid).updateAttendance();
+            }
+              return UserTile(user: students[index]);
+
             });
       }
 

@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 
 import '../../model/user.dart';
+import '../../model/user.dart';
+import '../../model/user.dart';
 
 class UserTile extends StatefulWidget {
   final User user;
@@ -14,7 +16,17 @@ class UserTile extends StatefulWidget {
 
 class _UserTileState extends State<UserTile> {
 
+  User search(){
+    User dummy = widget.user;
+       bool a = dummy.matrix == "2019702237";
+       if(dummy.matrix == "2019702237") {
+         return dummy;
+       }
+       else{
+         return dummy;
+       }
 
+  }
 
 
   @override
@@ -24,6 +36,7 @@ class _UserTileState extends State<UserTile> {
       child: Column(
         children: <Widget>[
           Text(widget.user.name + " has Attend the Class"),
+          Text(search().matrix),
           Card(
             margin: EdgeInsets.fromLTRB(20.0,6.0,20.0,0.0),
             child: ListTile(
@@ -31,8 +44,8 @@ class _UserTileState extends State<UserTile> {
                 radius: 25.0,
                 backgroundColor: Colors.redAccent,
               ),
-              title: Text(widget.user.name + " ("+ widget.user.matrix +")"),
-              subtitle: Text(widget.user.program),
+//              title: Text(search().name + " ("+ search().matrix +")"),
+//              subtitle: Text(search().program),
             ),
           ),
 

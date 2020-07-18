@@ -85,7 +85,6 @@ class _SignInState extends State<SignIn> {
                             dynamic result =
                             await _auth.SignInWithEmailAndPassword(
                                 email, password);
-                            print(result+"sasasa");
                             if (result == null) {
                               setState(() {
                                 error =

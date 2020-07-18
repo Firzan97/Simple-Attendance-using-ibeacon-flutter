@@ -7,6 +7,10 @@ class User {
   final String matrix;
 
   User({this.uid, this.name, this.program,this.matrix});
+
+  String getMatrix(){
+    return this.matrix;
+  }
 }
 
 class UserData {
