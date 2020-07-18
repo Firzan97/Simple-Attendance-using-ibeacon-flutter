@@ -123,7 +123,7 @@ class _UserListState extends State<UserList> {
 
   @override
   Widget build(BuildContext context) {
-    final students = Provider.of<List<User>>(context);
+    final students = Provider.of<List<User>>(context) ?? [];
     final user = Provider.of<User>(context);
 
     return StreamBuilder<User>(
