@@ -18,6 +18,8 @@ class _UserListState extends State<UserList> {
     final students = Provider.of<List<User>>(context);
     final user = Provider.of<User>(context);
 
+
+
     return StreamBuilder<User>(
       stream: DatabaseService(uid: user.uid).userData,
       builder: (context,snapshot){
@@ -25,7 +27,8 @@ class _UserListState extends State<UserList> {
             itemCount: students.length,
             itemBuilder: (context,index){
               if(students[index].matrix==snapshot.data.matrix) {
-                //await DatabaseService(uid: user.uid).updateAttendance();
+                 DatabaseService(uid: user.uid).updateAttendance();
+                 print("Total student sekarang ---->" + students.length.toString());
                 return UserTile(user: students[index]);
               }
             });

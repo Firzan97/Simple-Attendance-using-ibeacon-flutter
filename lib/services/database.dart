@@ -11,7 +11,7 @@ class DatabaseService {
   final CollectionReference studentInfo =
       Firestore.instance.collection('students');
 
-  // final CollectionReference attendance = Firestore.instance.collection('attendance');
+  final CollectionReference attendance = Firestore.instance.collection('attendances');
 
   Future updateUserData(String name, String program, String matrix) async {
     return await studentInfo.document(uid).setData({
@@ -50,9 +50,11 @@ class DatabaseService {
   }
 
   //automatic attendance
-  Future updateAttendance(){
-    // return await attendance.document(uid).setDat({
-    // 'status' : attended });
+  Future updateAttendance()async {
+    return await attendance.document(uid).setData({
+      'status' : "attended" ,
+       'student': "/students/"+uid
+    });
 
   }
 }

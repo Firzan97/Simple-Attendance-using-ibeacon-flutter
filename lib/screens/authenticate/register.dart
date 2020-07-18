@@ -80,6 +80,18 @@ class _RegisterState extends State<Register> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
+                        hintText: "Matrix Number",
+                      ),
+                      validator: (val) => val.isEmpty ? "Please Enter Matrix Number" : null,
+                      onChanged: (val) {
+                        setState(() => matrix = val);
+                      },
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
                         hintText: "Email",
                       ),
                       validator: (val) => val.isEmpty ? "Enter an email" : null,
