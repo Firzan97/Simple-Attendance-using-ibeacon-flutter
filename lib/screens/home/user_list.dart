@@ -125,42 +125,58 @@ class _UserListState extends State<UserList> {
 
   @override
   Widget build(BuildContext context) {
-//    final students = Provider.of<List<User>>(context) ?? [];
+    final students = Provider.of<List<User>>(context) ?? [];
     final user = Provider.of<User>(context);
      final attendances = Provider.of<List<Attendance>>(context) ?? [];
 
-    return  Column(
-
-          children: <Widget>[
-            Center(
+    return StreamBuilder<User>(
+        stream: DatabaseService(uid: user.uid).userData,
+        builder: (context, snapshot) {
+          return Column(
+            children: <Widget>[
+              Center(
                 child: Container(
-
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 20.0,bottom: 10.0),
-                      child: Text(uuid == "C5:4D:36:46:B6:CA" ? 'ITT575 CLASS' : 'No Class Detect', style:
-                        TextStyle(
-                          fontSize: 20.00,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.red,
-                        ),),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+                    child: Text(
+                      uuid == "C5:4D:36:46:B6:CA"
+                          ? 'ITT575 CLASS'
+                          : 'No Class Detect',
+                      style: TextStyle(
+                        fontSize: 20.00,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.red,
+                      ),
                     ),
-
                   ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: attendances.length,
-                  itemBuilder: (context,index){
-//                  if((students[index].matrix.toString()==snapshot.data.matrix) && (uuid == "C5:4D:36:46:B6:CA")) {
-//                    DatabaseService(uid: user.uid).updateAttendance();
-//                  }
+                ),
+              ),
+              //list view untuk compare & update database
+              Expanded(
+                child: ListView.builder(
+                    itemCount: students.length,
+                    itemBuilder: (context, index) {
+
+                      if ((students[index].matrix.toString() ==
+                              snapshot.data.matrix) &&
+                          (uuid == "C5:4D:36:46:B6:CA")) {
+                        DatabaseService(uid: user.uid).updateAttendance();
+
+                      }
 //                    return UserTile(user: students[index]);
-                    return AttendanceTile(att: attendances[index]);
-                  }),
-            ),
-          ],
-        );
-
-
+//                      return AttendanceTile(att: attendances[index]);
+                    }),
+              ),
+              //list view untuk display attendances
+              Expanded(
+                child: ListView.builder(
+                    itemCount: attendances.length,
+                    itemBuilder: (context, index) {
+                      return AttendanceTile(att: attendances[index]);
+                    }),
+              ),
+            ],
+          );
+        });
   }
 }

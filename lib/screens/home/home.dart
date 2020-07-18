@@ -125,8 +125,13 @@ class _HomeState extends State<Home> {
     final user = Provider.of<User>(context);
 
     // TODO: implement build
-    return StreamProvider<List<Attendance>>.value(
-      value: DatabaseService().attendances,
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Attendance>>.value(
+            value: DatabaseService().attendances),
+        StreamProvider<List<User>>.value(
+            value: DatabaseService().students)
+      ],
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.redAccent,
