@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:beaconapplication/model/attendance.dart';
 import 'package:beaconapplication/screens/home/user_list.dart';
 import 'package:beaconapplication/services/auth.dart';
 import 'package:beaconapplication/services/database.dart';
@@ -124,8 +125,8 @@ class _HomeState extends State<Home> {
     final user = Provider.of<User>(context);
 
     // TODO: implement build
-    return StreamProvider<List<User>>.value(
-      value: DatabaseService().students,
+    return StreamProvider<List<Attendance>>.value(
+      value: DatabaseService().attendances,
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.redAccent,

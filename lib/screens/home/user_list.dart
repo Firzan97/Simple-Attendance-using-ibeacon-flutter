@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:beaconapplication/model/attendance.dart';
+import 'package:beaconapplication/screens/home/attendance_Tile.dart';
 import 'package:beaconapplication/screens/home/user_tile.dart';
 import 'package:beaconapplication/services/database.dart';
 import 'package:beacons_plugin/beacons_plugin.dart';
@@ -123,13 +125,11 @@ class _UserListState extends State<UserList> {
 
   @override
   Widget build(BuildContext context) {
-    final students = Provider.of<List<User>>(context) ?? [];
+//    final students = Provider.of<List<User>>(context) ?? [];
     final user = Provider.of<User>(context);
+     final attendances = Provider.of<List<Attendance>>(context) ?? [];
 
-    return StreamBuilder<User>(
-      stream: DatabaseService(uid: user.uid).userData,
-      builder: (context,snapshot){
-        return Column(
+    return  Column(
 
           children: <Widget>[
             Center(
@@ -149,20 +149,18 @@ class _UserListState extends State<UserList> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: students.length,
+                  itemCount: attendances.length,
                   itemBuilder: (context,index){
-                  if((students[index].matrix.toString()=="2019702237") && (uuid == "C5:4D:36:46:B6:CA")) {
-                    DatabaseService(uid: user.uid).updateAttendance();
-                  }
-                    return UserTile(user: students[index]);
-
+//                  if((students[index].matrix.toString()==snapshot.data.matrix) && (uuid == "C5:4D:36:46:B6:CA")) {
+//                    DatabaseService(uid: user.uid).updateAttendance();
+//                  }
+//                    return UserTile(user: students[index]);
+                    return AttendanceTile(att: attendances[index]);
                   }),
             ),
           ],
         );
 
-      }
 
-    );
   }
 }

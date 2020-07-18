@@ -1,4 +1,5 @@
 
+import 'package:beaconapplication/model/attendance.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../model/user.dart';
@@ -44,6 +45,7 @@ class DatabaseService {
     return studentInfo.snapshots().map(_userListFromSnapshot);
   }
 
+
   Stream<User> get userData{
     return studentInfo.document(uid).snapshots()
     .map(_userDataFromSnapShot);
@@ -55,6 +57,19 @@ class DatabaseService {
       'status' : "attended" ,
        'student': "/students/"+uid
     });
+  }
 
+  //retreive attendance
+  List<Attendance> _attendanceListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc){
+      return Attendance(
+          status:  doc.data['status'] ?? '',
+          studId: doc.data['student'] ?? '',
+      );
+    }).toList();
+  }
+
+  Stream<List<Attendance>> get attendances {
+    return attendance.snapshots().map(_attendanceListFromSnapshot);
   }
 }
