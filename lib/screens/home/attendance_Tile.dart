@@ -16,11 +16,6 @@ class AttendanceTile extends StatefulWidget {
 
 class _AttendanceTileState extends State<AttendanceTile> {
 
-   User fecthData(){
-    String id = widget.att.studId;
-
-}
-
   @override
   Widget build(BuildContext context) {
 

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'dart:io' show Platform;
 import '../../model/user.dart';
+import '../../services/auth.dart';
 
 class UserList extends StatefulWidget {
   @override
@@ -16,6 +17,8 @@ class UserList extends StatefulWidget {
 }
 
 class _UserListState extends State<UserList> {
+  final AuthService _auth = AuthService();
+
   String _beaconResult = 'Not Scanned Yet.';
   int _nrMessaggesReceived = 0;
   var isRunning = false;
@@ -41,10 +44,13 @@ class _UserListState extends State<UserList> {
   Future<void> initPlatformState() async {
     BeaconsPlugin.listenToBeacons(beaconEventsController);
 
-    await BeaconsPlugin.addRegion(
-        "BeaconType1", "909c3cf9-fc5c-4841-b695-380958a51a5a");
-    await BeaconsPlugin.addRegion(
-        "BeaconType2", "6a84c716-0f2a-1ce9-f210-6a63bd873dd9");
+    BeaconsPlugin.addRegion("myBeacon", "01022022-f88f-0000-00ae-9605fd9bb620")
+        .then((result) {
+      print(result);
+    });
+    //Send 'true' to run in background
+//    await BeaconsPlugin.runInBackground(true);
+
 
     beaconEventsController.stream.listen(
         (data) {
@@ -64,23 +70,16 @@ class _UserListState extends State<UserList> {
           print("Error: $error");
         });
 
-    //Send 'true' to run in background
-    await BeaconsPlugin.runInBackground(true);
+
 
     if (Platform.isAndroid) {
       BeaconsPlugin.channel.setMethodCallHandler((call) async {
         if (call.method == 'scannerReady') {
           await BeaconsPlugin.startMonitoring;
-          setState(() {
-            isRunning = true;
-          });
         }
       });
     } else if (Platform.isIOS) {
       await BeaconsPlugin.startMonitoring;
-      setState(() {
-        isRunning = true;
-      });
     }
 
     if (!mounted) return;
@@ -124,7 +123,7 @@ class _UserListState extends State<UserList> {
 
       for (int i = 0; i < index; i++) {
         if (students[i].matrix.toString() == snapshot.data.matrix &&
-            uuid == "CD:E7:8D:D5:4E:73") {
+            uuid == "C5:4D:36:46:B6:CA") {
           DatabaseService(uid: user.uid).updateAttendance();
         }
       }
@@ -140,7 +139,7 @@ class _UserListState extends State<UserList> {
                   child: Padding(
                     padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
                     child: Text(
-                      uuid == "CD:E7:8D:D5:4E:73"
+                      uuid == "C5:4D:36:46:B6:CA"
                           ? 'ITT575 CLASS'
                           : 'No Class Detect',
                       style: TextStyle(
@@ -172,10 +171,23 @@ class _UserListState extends State<UserList> {
                 child: ListView.builder(
                     itemCount: attendances.length,
                     itemBuilder: (context, index) {
-                      _updateAttend(snapshot);
-                      return AttendanceTile(att: attendances[index]);
+                      if(uuid == "C5:4D:36:46:B6:CA") {
+                        _updateAttend(snapshot);
+                        return AttendanceTile(att: attendances[index]);
+                      }
                     }),
               ),
+                RaisedButton(
+                  onPressed: () async {
+                    initPlatformState();
+                    await BeaconsPlugin.startMonitoring;
+                    setState(() {
+                      isRunning = true;
+                    });
+                  },
+                  child: Text('Find Class', style: TextStyle(fontSize: 20, color: Colors.black)),
+                  color: Colors.lightBlueAccent,
+                ),
             ],
           );
         });

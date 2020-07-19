@@ -1,5 +1,6 @@
 import 'package:beaconapplication/model/user.dart';
 import 'package:beaconapplication/services/database.dart';
+import 'package:beacons_plugin/beacons_plugin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -62,6 +63,7 @@ class AuthService {
   Future signOut() async {
     try {
       return await _auth.signOut();
+
     } catch (e) {
       print(e.toString());
       return null;
