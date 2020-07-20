@@ -1,11 +1,9 @@
 import 'package:beaconapplication/model/user.dart';
 import 'package:beaconapplication/services/database.dart';
-import 'package:beacons_plugin/beacons_plugin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final User _user = User();
 
   User _userFromFirebaseUser(FirebaseUser user) {
     return user != null ? User(uid: user.uid) : null;

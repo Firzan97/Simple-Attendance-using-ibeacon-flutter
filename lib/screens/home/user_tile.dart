@@ -1,7 +1,5 @@
-import 'package:beacons_plugin/beacons_plugin.dart';
 import "package:flutter/material.dart";
 import '../../model/user.dart';
-import 'dart:io' show Platform;
 
 
 class UserTile extends StatefulWidget {
@@ -42,5 +40,4 @@ class _UserTileState extends State<UserTile> {
       ),
     );
   }
-
 }

@@ -1,6 +1,5 @@
 import 'package:beaconapplication/model/user.dart';
 import 'package:beaconapplication/screens/authenticate/authenticate.dart';
-import 'package:beaconapplication/screens/authenticate/sign_in.dart';
 import "package:flutter/material.dart";
 import "package:beaconapplication/screens/home/home.dart";
 import 'package:provider/provider.dart';

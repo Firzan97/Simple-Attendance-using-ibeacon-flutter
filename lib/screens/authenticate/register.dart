@@ -67,20 +67,10 @@ class _RegisterState extends State<Register> {
                           border: InputBorder.none,
                         ),
                         validator: (val) => val.isEmpty ? "Enter a name" : null,
-                          onChanged: (val) {
-                            setState(() => name = val);
-                          },
-
+                        onChanged: (val) {
+                          setState(() => name = val);
+                        },
                       ),
-//                    TextFormField(
-//                      decoration: InputDecoration(
-//                        hintText: "Name",
-//                      ),
-//                      validator: (val) => val.isEmpty ? "Enter a name" : null,
-//                      onChanged: (val) {
-//                        setState(() => name = val);
-//                      },
-//                    ),
                       SizedBox(
                         height: 5.0,
                       ),
@@ -94,19 +84,6 @@ class _RegisterState extends State<Register> {
                         }).toList(),
                         onChanged: (val) => setState(() => program = val),
                       ),
-
-//                    DropdownButtonFormField(
-//                      decoration: InputDecoration(
-//                        hintText: "Program",
-//                      ),
-//                      items: programs.map((program) {
-//                        return DropdownMenuItem(
-//                          value: program,
-//                          child: Text("$program"),
-//                        );
-//                      }).toList(),
-//                      onChanged: (val) => setState(() => program = val),
-//                    ),
                       SizedBox(
                         height: 5.0,
                       ),
@@ -125,15 +102,6 @@ class _RegisterState extends State<Register> {
                         },
 
                       ),
-//                    TextFormField(
-//                      decoration: InputDecoration(
-//                        hintText: "Matrix Number",
-//                      ),
-//                      validator: (val) => val.isEmpty ? "Please Enter Matrix Number" : null,
-//                      onChanged: (val) {
-//                        setState(() => matrix = val);
-//                      },
-//                    ),
                       RoundedInputField(
                         deco: InputDecoration(
                           icon: Icon(
@@ -148,15 +116,6 @@ class _RegisterState extends State<Register> {
                           setState(() => email = val);
                         },
                       ),
-//                    TextFormField(
-//                      decoration: InputDecoration(
-//                        hintText: "Email",
-//                      ),
-//                      validator: (val) => val.isEmpty ? "Enter an email" : null,
-//                      onChanged: (val) {
-//                        setState(() => email = val);
-//                      },
-//                    ),
                       RoundedPasswordField(
                           validator: (val) => val.length < 6
                             ? "Enter a password 6+ chars long"
@@ -165,68 +124,25 @@ class _RegisterState extends State<Register> {
                           setState(() => password = val);
                         },
                       ),
-//                    TextFormField(
-//                      decoration: InputDecoration(
-//                        hintText: "Password",
-//                      ),
-//                      validator: (val) => val.length < 6
-//                          ? "Enter a password 6+ chars long"
-//                          : null,
-//                      obscureText: true,
-//                      onChanged: (val) {
-//                        setState(() => password = val);
-//                      },
-//                    ),
-                    RoundedButton(
-                      text: "SIGNUP",
-                      press: () async {
-                        print("Validate");
-//                        dynamic result = await _auth
-//                            .registerWithEmailAndPassword(email, password, program, name, matrix);
-//                        if (result == null) {
-//                          setState(() {
-//                            error =
-//                            "Could  not sign in. Wrong input ";
-//                            print("tok jadi");
-//                          });
-//                        }
-
-
-                        dynamic result = await _auth
-                            .registerWithEmailAndPassword(email, password, program, name, matrix);
-                        if (result == null) {
-                          setState(() {
-                            error = "Please suply a valid email ";
-                          });
-                        }
-                      },
-                    ),
-//
+                      RoundedButton(
+                        text: "SIGNUP",
+                        press: () async {
+                          print("Validate");
+                          dynamic result = await _auth
+                              .registerWithEmailAndPassword(email, password, program, name, matrix);
+                          if (result == null) {
+                            setState(() {
+                              error = "Please suply a valid email ";
+                            });
+                          }
+                        },
+                      ),
                       AlreadyHaveAnAccountCheck(
                         login: false,
                         press: () {
                           widget.toggleView();
                         },
                       ),
-//                    RaisedButton(
-//                      color: Colors.lightBlueAccent,
-//                      child: Text(
-//                        'Register',
-//                        style: TextStyle(color: Colors.black),
-//                      ),
-//                      onPressed: () async {
-//                        if (_formkey.currentState.validate()) {
-//                          //await _auth.addAdditionalData(name, program);
-//                          dynamic result = await _auth
-//                              .registerWithEmailAndPassword(email, password, program, name, matrix);
-//                          if (result == null) {
-//                            setState(() {
-//                              error = "Please suply a valid email ";
-//                         });
-//                          }
-//                        }
-//                      },
-//                    ),
                       Text(
                         error,
                         style: TextStyle(color: Colors.red),

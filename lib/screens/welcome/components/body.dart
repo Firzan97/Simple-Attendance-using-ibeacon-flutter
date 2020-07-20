@@ -3,7 +3,6 @@ import 'package:beaconapplication/screens/welcome/components/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../shared/constants.dart';
-import '../../../shared/constants.dart';
 import '../../authenticate/register.dart';
 import '../../authenticate/sign_in.dart';
 
