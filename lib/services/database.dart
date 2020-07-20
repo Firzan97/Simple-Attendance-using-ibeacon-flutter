@@ -51,6 +51,11 @@ class DatabaseService {
     .map(_userDataFromSnapShot);
   }
 
+//  return studentInfo.document(uid).snapshots()
+//      .map(_userDataFromSnapShot);
+//} Future<User> get userData2{
+
+
   //automatic attendance
   Future updateAttendance()async {
     return await attendance.document(uid).setData({

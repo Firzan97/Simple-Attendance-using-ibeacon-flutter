@@ -5,6 +5,7 @@ import 'package:beaconapplication/model/attendance.dart';
 import 'package:beaconapplication/screens/home/user_list.dart';
 import 'package:beaconapplication/services/auth.dart';
 import 'package:beaconapplication/services/database.dart';
+import 'package:beaconapplication/shared/constants.dart';
 import 'package:beacons_plugin/beacons_plugin.dart';
 import "package:flutter/material.dart";
 import 'dart:io' show Platform;
@@ -50,7 +51,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
+    Size size = MediaQuery.of(context).size;
     final user = Provider.of<User>(context);
 
     // TODO: implement build
@@ -61,32 +62,34 @@ class _HomeState extends State<Home> {
         StreamProvider<List<User>>.value(
             value: DatabaseService().students)
       ],
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.redAccent,
-            title: Text("Home"),
-            elevation: 0.0,
-            centerTitle: true,
-            actions: <Widget>[
-              FlatButton.icon(
-                icon: Icon(Icons.person),
-                label: Text("Log Out"),
-                onPressed: () async {
-// adda error , kalau tambah second time login dia tak detect beacon dah
-                 if (Platform.isAndroid) {
-                      await BeaconsPlugin.stopMonitoring;
+      child: SafeArea(
+        child: Scaffold(
+//          appBar: AppBar(
+//            backgroundColor: kPrimaryColor,
+//            title: Text("Home"),
+//            elevation: 0.0,
+//            centerTitle: true,
+//            actions: <Widget>[
+//              FlatButton.icon(
+//                icon: Icon(Icons.person),
+//                label: Text("Log Out"),
+//                onPressed: () async {
+//// adda error , kalau tambah second time login dia tak detect beacon dah
+//                 if (Platform.isAndroid) {
+//                      await BeaconsPlugin.stopMonitoring;
+//
+//                      setState(() {
+//                        isRunning = true;
+//                      });
+//                    }
+//                  await _auth.signOut();
+//                },
+//              )
+//            ],
+//          ),
+           body: UserList()
 
-                      setState(() {
-                        isRunning = true;
-                      });
-                    }
-                  await _auth.signOut();
-                },
-              )
-            ],
-          ),
-         body: UserList()
-
+        ),
       ),
 
     );

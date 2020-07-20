@@ -11,13 +11,17 @@ class Wrapper extends StatelessWidget {
     //return either Home or Authenticate Widget
 
     final user = Provider.of<User>(context);
+
     print(user);
     if(user==null)
       {
+        print("tak authenticate");
         return Authenticate();
       }
     else{
       return Home(uid: user.uid);
+      print("dah authenticate");
+
     }
 
   }

@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
 const textInputDecoration = InputDecoration(
-  fillColor: Colors.white,
+  fillColor: kSecondaryColor,
   filled: true,
   enabledBorder: OutlineInputBorder(
     borderSide: BorderSide(color: Colors.white24, width: 2.0),
@@ -12,3 +12,8 @@ const textInputDecoration = InputDecoration(
       borderSide: BorderSide(color: Colors.redAccent, width: 2.0)
   ),
 );
+
+const kPrimaryColor =Color(0xFFe53935);
+const kSecondaryColor =Color(0xFFff867c);
+
+const kThirdColor =Color(0xFFff5f4e);

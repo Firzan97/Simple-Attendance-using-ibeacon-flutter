@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'package:beaconapplication/component/rounded_button.dart';
 import 'package:beaconapplication/model/attendance.dart';
 import 'package:beaconapplication/screens/home/attendance_Tile.dart';
 import 'package:beaconapplication/screens/home/user_tile.dart';
 import 'package:beaconapplication/services/database.dart';
+import 'package:beaconapplication/shared/constants.dart';
 import 'package:beacons_plugin/beacons_plugin.dart';
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
@@ -10,6 +12,7 @@ import 'dart:convert';
 import 'dart:io' show Platform;
 import '../../model/user.dart';
 import '../../services/auth.dart';
+import '../../shared/loading.dart';
 
 class UserList extends StatefulWidget {
   @override
@@ -18,7 +21,7 @@ class UserList extends StatefulWidget {
 
 class _UserListState extends State<UserList> {
   final AuthService _auth = AuthService();
-
+  bool loading = false;
   String _beaconResult = 'Not Scanned Yet.';
   int _nrMessaggesReceived = 0;
   var isRunning = false;
@@ -128,7 +131,7 @@ class _UserListState extends State<UserList> {
         }
       }
     }
-
+    Size size = MediaQuery.of(context).size;
     return StreamBuilder<User>(
         stream: DatabaseService(uid: user.uid).userData,
         builder: (context, snapshot) {
@@ -136,18 +139,52 @@ class _UserListState extends State<UserList> {
             children: <Widget>[
               Center(
                 child: Container(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
-                    child: Text(
-                      uuid == "C5:4D:36:46:B6:CA"
-                          ? 'ITT575 CLASS'
-                          : 'No Class Detect',
-                      style: TextStyle(
-                        fontSize: 20.00,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.red,
+                  width: size.width,
+
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          uuid == "C5:4D:36:46:B6:CA"
+                              ? 'ITT575 CLASS'
+                              : 'No Class Detect',
+                          style: TextStyle(
+                            fontSize: 18.00,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.black87,
+                          ),
+                        ),
                       ),
-                    ),
+                      RoundedButton(
+                        press: () async {
+                          if (Platform.isAndroid) {
+                            await BeaconsPlugin.stopMonitoring;
+
+                            setState(() {
+                              isRunning = true;
+                            });
+                          }
+                          await _auth.signOut();
+
+                        },
+                        text: "Log Out",
+                        color: kThirdColor,
+                      ),
+                      RoundedButton(
+                        press: () async {
+                          initPlatformState();
+                          await BeaconsPlugin.startMonitoring;
+                          setState(() {
+                            isRunning = true;
+                          });
+
+                        },
+                        text: "Find Class",
+                        color: kThirdColor,
+                      ),
+                      SizedBox(height: 20.0,)
+                    ],
                   ),
                 ),
               ),
@@ -167,27 +204,32 @@ class _UserListState extends State<UserList> {
               //   ),
               // ),
               //list view untuk display attendances
+
               Expanded(
-                child: ListView.builder(
-                    itemCount: attendances.length,
-                    itemBuilder: (context, index) {
-                      if(uuid == "C5:4D:36:46:B6:CA") {
-                        _updateAttend(snapshot);
-                        return AttendanceTile(att: attendances[index]);
-                      }
-                    }),
-              ),
-                RaisedButton(
-                  onPressed: () async {
-                    initPlatformState();
-                    await BeaconsPlugin.startMonitoring;
-                    setState(() {
-                      isRunning = true;
-                    });
-                  },
-                  child: Text('Find Class', style: TextStyle(fontSize: 20, color: Colors.black)),
-                  color: Colors.lightBlueAccent,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.only(topRight: Radius.circular(30.0),topLeft: Radius.circular(30.0)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        spreadRadius: 7,
+                        blurRadius: 10,
+                      )
+                    ]
+                  ),
+                  child: ListView.builder(
+                      itemCount: attendances.length,
+                      itemBuilder: (context, index) {
+                        if(uuid == "C5:4D:36:46:B6:CA") {
+                          _updateAttend(snapshot);
+                          return AttendanceTile(att: attendances[index]);
+                        }
+
+                      }),
                 ),
+              ),
+
             ],
           );
         });
